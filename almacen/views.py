@@ -6,16 +6,13 @@ from rest_framework.response import Response
 from rest_framework import status
 # Serializador de datos:
 from core import serializadores
+# Modelo de Datos:
+from .models import Producto
 
 # Create your views here.
-class ProductoView(viewsets.ViewSet):
+class ProductoView(viewsets.ModelViewSet):
     """ Test de Validación """
-
-    serial_class = serializadores.ProductoSerializer
-
-    # Métodos:
-    def list(self, request):
-        diccionario = {
-            'productos': self.serial_class
-        }
-        return Response(diccionario)
+    # Renombrar el atributo serializer_class
+    serializer_class = serializadores.ProductoSerializer
+    # Consulta a la base de datos
+    queryset = Producto.objects.all()
